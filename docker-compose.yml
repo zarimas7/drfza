@@ -1,0 +1,19 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: zarima
+      POSTGRES_PASSWORD: zar@1234
+      POSTGRES_DB: post
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: python manage.py runserver 0.0.0.0:80
+    volumes:
+      - .:/app
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
